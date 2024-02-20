@@ -90,6 +90,7 @@
 
             placar = this.add.text(50, 50, 'Moedas:' + pontuacao, {fontSize:'45px', fill:'#495613'})
 
+            //criando interação entre alien e moeda + sistema de pontuação
             this.physics.add.overlap(alien, moeda, function(){
                 moeda.setVisible(false);
 
@@ -134,6 +135,11 @@
             }
                 
             fogo.setPosition(alien.x, alien.y + alien.height/2) 
+
+            if (pontuacao === 10){
+                this.physics.pause();
+                this.add.text(275, 400, 'Parabéns', { fontSize: '30px', fill: '#000000' });
+            }
             
         }
 
