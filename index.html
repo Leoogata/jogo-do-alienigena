@@ -64,10 +64,12 @@
         function create() {
             this.add.image(larguraJogo/2, alturaJogo/2, 'background');//escolhendo onde o centro do background será colocado
 
+            //adicionando turbo da nave
             fogo = this.add.sprite(0, 0, 'fogo');
             fogo.setVisible(false);
 
-            alien = this.physics.add.sprite(larguraJogo/2, 0, 'player');//escolhendo onde o centro da sprite será colocado
+            //adicionando alien e sua colisão com as bordas do mundo
+            alien = this.physics.add.sprite(larguraJogo/2, 0, 'player');
             alien.setCollideWorldBounds(true);
 
             teclado = this.input.keyboard.createCursorKeys();
@@ -78,10 +80,12 @@
                 this.physics.add.staticImage(600, alturaJogo/2, 'plataforma')
             ];
 
+            //adicionando colisão entre alien e plataforma
             plataformas.forEach(plataforma => {
                 this.physics.add.collider(alien, plataforma);
             });
 
+            //adicionando moeda e sua colisão com a plataforma
             moeda = this.physics.add.sprite(larguraJogo/2, 0, 'moeda');
             moeda.setCollideWorldBounds(true);
             plataformas.forEach(plataforma => {
@@ -103,6 +107,7 @@
                 moeda.setVisible(true);
             });
 
+            //adicionando inimigo, desabilitando sua gravidade, e adicionando game over ao colidir com o alien
             inim = this.physics.add.sprite(0, 650, 'inimigo');
             inim.body.allowGravity = false;
             this.physics.add.collider(alien, inim, () => 
@@ -143,11 +148,13 @@
                 
             fogo.setPosition(alien.x, alien.y + alien.height/2);
 
+            //adicionando final ao jogo ao jogador alcançar 10 pontos e mensagem de parabens
             if (pontuacao === 10){
                 this.physics.pause();
                 this.add.text(275, 400, 'Parabéns', { fontSize: '30px', fill: '#000000' });
             }
 
+            //adicionando movimentação do inimigo
             if (inim.x === 0){
                 inim.ida = true;
             }
